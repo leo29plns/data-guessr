@@ -37,7 +37,7 @@ aside.metadata {
   background-color: var(--color-surface-1);
   padding: 1rem;
   max-width: 20rem;
-  border-radius: var(--container-border-radius);
+  border-radius: var(--radius-2);
 
   dl {
     display: grid;
@@ -59,7 +59,7 @@ aside.controls {
     display: grid;
     background-color: var(--color-on-surface-1);
     gap: 0.125rem;
-    border-radius: var(--button-border-radius);
+    border-radius: var(--radius-2);
 
     button {
       padding: 0.25rem;

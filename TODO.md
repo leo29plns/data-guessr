@@ -10,8 +10,10 @@
 
 
 -- ecran de fin --
--- Tokens de border
--- niveau
+-- Tokens de border --
+-- barres de couleur
+-- niveaux
 -- menu rétractable
+-- select moche
 -- pins de couleurs différentes
 -- dialog pour présenter jeu

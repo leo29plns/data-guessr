@@ -1,6 +1,8 @@
 :root {
-  --button-border-radius: 0.25rem;
-  --container-border-radius: 0.25rem;
+  --radius-1: 0.25rem;
+  --radius-2: 0.5rem;
+  --radius-3: 1rem;
+  --radius-round: 999rem;
 }
 
 :root {
