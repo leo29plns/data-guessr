@@ -4,9 +4,6 @@
 
 This project requires the following tools to be installed on your system:
 
-- **Node Version Manager (nvm)**  
-  [https://github.com/nvm-sh/nvm](https://github.com/nvm-sh/nvm)
-
 - **pnpm**  
   [https://pnpm.io/installation](https://pnpm.io/installation)
 
@@ -20,7 +17,7 @@ cd data-guessr
 pnpm install
 ```
 
-Node.js will be managed via **nvm**. Husky hooks ensure the correct Node version is installed automatically when checking out the project.
+Node.js will be managed via **pnpm**. Husky hooks ensure the correct Node version is installed automatically when checking out the project.
 
 ## Development
 

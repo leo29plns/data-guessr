@@ -10,7 +10,7 @@
   --chroma-brand: 0.15;
   --chroma-neutral: 0.01;
 
-  /* --- LIGHT Mode Config --- */
+  /* Light mode */
   --l-surface-1: 0.99;
   --l-surface-2: 0.95;
   --l-surface-3: 0.9;
@@ -26,7 +26,7 @@
 }
 
 [data-mode="dark"] {
-  /* --- DARK Mode Config --- */
+  /* Dark mode */
   --l-surface-1: 0.12;
   --l-surface-2: 0.18;
   --l-surface-3: 0.25;

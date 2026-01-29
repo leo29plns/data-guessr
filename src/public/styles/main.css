@@ -90,52 +90,35 @@ dialog {
   color: var(--color-on-brand);
 }
 
-/* --- SKEUOMORPHIC OVERRIDE --- */
-
 .button.skeuomorphic {
-  /* CONFIGURATION INTERNE */
-  --_depth: 4px;
-  /* Par défaut, on reprend la couleur "surface-2" du bouton standard */
-  --_bg-override: var(--color-surface-2);
-  /* L'ombre est calculée automatiquement par rapport à la couleur de fond */
-  --_shadow-col: color-mix(in srgb, var(--_bg-override), black 20%);
+  --depth: 0.25rem;
+  --bg-override: var(--color-surface-2);
+  --shadow-col: color-mix(in srgb, var(--bg-override), black 20%);
 
-  /* LAYOUT & PHYSIQUE */
   position: relative;
-  /* On force le background avec notre variable pour contrôler l'état hover */
-  background-color: var(--_bg-override);
-  /* L'ombre solide */
-  box-shadow: 0 var(--_depth) 0 var(--_shadow-col);
-  /* On ajoute une marge en bas pour éviter que le bouton ne décale le layout */
-  margin-block-end: var(--_depth);
+  background-color: var(--bg-override);
+  box-shadow: 0 var(--depth) 0 var(--shadow-col);
+  margin-block-end: var(--depth);
 
-  /* On remplace la transition de couleur par une transition de mouvement */
   transition:
-    transform 0.1s cubic-bezier(0.25, 0.8, 0.25, 1),
-    box-shadow 0.1s;
+    transform 100ms,
+    box-shadow 100ms;
+  transition-timing-function: ease;
 
-  /* HOVER : Mouvement vers le haut (Override du hover standard) */
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 calc(var(--_depth) + 2px) 0 var(--_shadow-col);
-
-    /* IMPORTANT : On bloque le changement de couleur standard (gris -> gris foncé)
-       pour garder l'aspect "plastique" qui ne change pas de couleur */
-    background-color: var(--_bg-override);
+    transform: translateY(-0.125rem);
+    box-shadow: 0 calc(var(--depth) + 0.125rem) 0 var(--shadow-col);
+    background-color: var(--bg-override);
   }
 
-  /* ACTIVE : Enfoncement (Override) */
   &:active {
-    transform: translateY(var(--_depth));
-    box-shadow: 0 0 0 var(--_shadow-col);
+    transform: translateY(var(--depth));
+    box-shadow: 0 0 0 var(--shadow-col);
   }
 }
 
-/* CAS SPÉCIFIQUE : Si le bouton est AUSSI .brand */
-/* On cible .button.skeuomorphic.brand pour gagner en spécificité et écraser le .button.brand de base */
 .button.skeuomorphic.brand {
-  /* On met simplement à jour la variable locale, l'ombre se recalcule toute seule */
-  --_bg-override: var(--color-brand);
+  --bg-override: var(--color-brand);
   color: var(--color-on-brand);
 }
 
