@@ -1,19 +1,70 @@
 :root {
   --button-border-radius: 0.25rem;
+  --container-border-radius: 0.25rem;
+}
 
-  --color-base: oklch(0.1776 0 0);
-  --color-info: oklch(60.769% 0.17124 274.512);
-  --color-success: oklch(80.683% 0.1808 146.289);
-  --color-warning: oklch(74.728% 0.13038 56.415);
-  --color-error: oklch(61.507% 0.20769 25.768);
+:root {
+  --hue-brand: 260;
+  --chroma-brand: 0.15;
+  --chroma-neutral: 0.01;
 
-  --color-primary: oklch(1 0 1);
-  --color-primary-hover: oklch(0.9 0 1);
-  --color-on-primary: oklch(from var(--color-base) l c h / 1);
+  /* --- LIGHT Mode Config --- */
+  --l-surface-1: 0.99;
+  --l-surface-2: 0.95;
+  --l-surface-3: 0.9;
+
+  --l-on-surface-1: 0.1;
+  --l-on-surface-2: 0.35;
+  --l-on-surface-3: 0.55;
+
+  --l-brand: 0.6;
+  --l-on-brand: 0.99;
+
+  --hover-delta: -0.1;
 }
 
 [data-mode="dark"] {
-  --color-primary: oklch(0.1776 0 0);
-  --color-primary-hover: oklch(0.3776 0 0);
-  --color-on-primary: oklch(1 0 1);
+  /* --- DARK Mode Config --- */
+  --l-surface-1: 0.12;
+  --l-surface-2: 0.18;
+  --l-surface-3: 0.25;
+
+  --l-on-surface-1: 0.95;
+  --l-on-surface-2: 0.8;
+  --l-on-surface-3: 0.6;
+
+  --l-brand: 0.7;
+  --l-on-brand: 0.1;
+
+  --hover-delta: 0.1;
+}
+
+:root {
+  --color-surface-1: oklch(
+    var(--l-surface-1) var(--chroma-neutral) var(--hue-brand)
+  );
+  --color-surface-2: oklch(
+    var(--l-surface-2) var(--chroma-neutral) var(--hue-brand)
+  );
+  --color-surface-3: oklch(
+    var(--l-surface-3) var(--chroma-neutral) var(--hue-brand)
+  );
+
+  --color-on-surface-1: oklch(
+    var(--l-on-surface-1) var(--chroma-neutral) var(--hue-brand)
+  );
+  --color-on-surface-2: oklch(
+    var(--l-on-surface-2) var(--chroma-neutral) var(--hue-brand)
+  );
+  --color-on-surface-3: oklch(
+    var(--l-on-surface-3) var(--chroma-neutral) var(--hue-brand)
+  );
+
+  --color-brand: oklch(var(--l-brand) var(--chroma-brand) var(--hue-brand));
+  --color-brand-hover: oklch(
+    from var(--color-brand) calc(l + var(--hover-delta)) c h
+  );
+  --color-on-brand: oklch(var(--l-on-brand) 0 0);
+
+  --color-backdrop: oklch(0.05 var(--chroma-neutral) var(--hue-brand) / 0.5);
 }

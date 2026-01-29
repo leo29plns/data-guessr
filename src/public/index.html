@@ -59,32 +59,36 @@
             <h1>map: metadata</h1>
             <dl>
               <div>
-                <dt>Superficie</dt>
+                <dt>📐 Superficie</dt>
                 <dd><span data-slot="superfic"></span>&nbsp;km²</dd>
               </div>
               <div>
-                <dt>Naissances en 2022</dt>
+                <dt>👶 Naissances en 2022</dt>
                 <dd><span data-slot="naiss2022"></span></dd>
               </div>
               <div>
-                <dt>Décès en 2022</dt>
+                <dt>⚰️ Décès en 2022</dt>
                 <dd><span data-slot="deces2022"></span></dd>
               </div>
               <div>
-                <dt>Revenu médian en 2020</dt>
+                <dt>💶 Revenu médian en 2020</dt>
                 <dd><span data-slot="revMed2020"></span>&nbsp;€</dd>
               </div>
               <div>
-                <dt>Prix moyen du m²</dt>
+                <dt>🏠 Prix moyen du m²</dt>
                 <dd><span data-slot="achat_moyen_m2"></span>&nbsp;€</dd>
               </div>
               <div>
-                <dt>Axe routier proche</dt>
+                <dt>🛣️ Axe routier proche</dt>
                 <dd><span data-slot="near_road"></span></dd>
               </div>
               <div>
-                <dt>Monument notable</dt>
+                <dt>🏛️ Monument notable</dt>
                 <dd><span data-slot="near_monu"></span></dd>
+              </div>
+              <div>
+                <dt>🚌 Arrêt de bus</dt>
+                <dd><span data-slot="arret_bus"></span></dd>
               </div>
             </dl>
           </aside>
@@ -95,6 +99,7 @@
                 commandfor="settings"
                 command="show-modal"
                 aria-label="Ouvrir les paramètres"
+                class="button"
               >
                 <ui-icon name="settings"></ui-icon>
               </button>
@@ -123,8 +128,8 @@
           <aside class="layers">
             <form-group>
               <label for="layer">Layer</label>
-              <select name="layer" id="layer">
-                <option value="default">Base</option>
+              <select name="layer" id="layer" class="button">
+                <option value="default">Carte</option>
               </select>
             </form-group>
           </aside>
@@ -156,7 +161,7 @@
                   >
                 </form-group>
               </div>
-              <button type="submit">Guess!</button>
+              <button type="submit" class="button brand">Guess!</button>
             </form>
           </aside>
         </div>
@@ -177,16 +182,25 @@
           <dd><span data-slot="score"></span> points</dd>
         </div>
       </dl>
-      <button data-action="next" aria-label="Passer au round suivant">
-        Suivant <ui-icon name="x"></ui-icon>
+      <button
+        data-action="next"
+        class="button brand"
+        aria-label="Passer au round suivant"
+      >
+        Suivant <ui-icon name="player-play"></ui-icon>
       </button>
     </aside>
 
     <dialog id="game-score" class="score-score">
       <h1>Fin de jeu !</h1>
-
-      <button data-action="next" aria-label="Terminer la partie">
-        <ui-icon name="x"></ui-icon>
+      <dl>
+        <div>
+          <dt>Votre score</dt>
+          <dd><span data-slot="totalScore"></span> points</dd>
+        </div>
+      </dl>
+      <button data-action="next" class="button" aria-label="Terminer la partie">
+        Rejouer <ui-icon name="player-play"></ui-icon>
       </button>
     </dialog>
 
@@ -215,8 +229,9 @@
         command="request-close"
         commandfor="settings"
         aria-label="Fermer les paramètres"
+        class="button"
       >
-        <ui-icon name="x"></ui-icon>
+        <ui-icon name="x"></ui-icon> Fermer
       </button>
     </dialog>
 

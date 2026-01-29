@@ -1,7 +1,9 @@
+import { DataSlot } from '../DataSlot/DataSlot.js';
 import { DialogManager } from './DialogManager.js';
 
 /**
  * @import { Bus } from '@/scripts/classes/Bus/Bus.js'
+ * @import { Game } from '@/scripts/classes/Game/Game.js'
  */
 
 export class GameScoreManager extends DialogManager {
@@ -25,8 +27,18 @@ export class GameScoreManager extends DialogManager {
 
   setupListeners() {
     this.bus.on('game:ended', (game) => {
-      console.log('Game ended. Total score :', game.totalScore);
+      this.#render(game);
       this.show();
     });
+  }
+
+  /**
+   * @param {Game} game
+   */
+  #render(game) {
+    const { totalScore } = game;
+
+    const dataSlot = new DataSlot(this.dialog);
+    dataSlot.update({ totalScore });
   }
 }

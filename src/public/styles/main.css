@@ -25,8 +25,8 @@ body {
   min-height: 100dvh;
   display: grid;
 
-  background-color: var(--color-primary);
-  color: var(--color-on-primary);
+  background-color: var(--color-surface-1);
+  color: var(--color-on-surface-1);
 }
 
 main {
@@ -48,23 +48,79 @@ form-group {
 
 dialog {
   border: none;
+  background-color: var(--color-surface-1);
+  padding: 1rem;
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
 
   &::backdrop {
-    background-color: oklch(0 0 0 / 0.5);
+    background-color: var(--color-backdrop);
     backdrop-filter: blur(4px);
   }
 }
 
+[popover] {
+  border: none;
+  background-color: var(--color-surface-1);
+  padding: 1rem;
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
 .button {
   border: 0;
-  padding: 0.5rem;
-  background-color: var(--color-primary);
+  padding-block: 0.5rem;
+  padding-inline: 0.75rem;
+  background-color: var(--color-surface-2);
+  color: var(--color-on-surface-1);
   border-radius: var(--button-border-radius);
+  display: inline-flex;
+  gap: 0.5rem;
+  font-weight: 600;
 
   &:hover {
-    background-color: var(--color-primary-hover);
+    background-color: var(--color-surface-3);
   }
 }
+
+.button.brand {
+  background-color: var(--color-brand);
+  color: var(--color-on-brand);
+}
+
+/* .button {
+  --depth: 6px;
+
+  border: 0;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border-radius: var(--button-border-radius);
+  display: inline-flex;
+  cursor: pointer;
+
+  box-shadow: 0 var(--depth) 0 0
+    color-mix(in srgb, var(--color-primary), black 20%);
+
+  position: relative;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 calc(var(--depth) + 2px) 0 0
+      color-mix(in srgb, var(--color-primary), black 25%);
+  }
+
+  &:active {
+    transform: translateY(var(--depth));
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary), black 20%);
+    transition: transform 0.05s ease;
+  }
+} */
 
 ::view-transition-group(*) {
   animation-duration: 500ms;

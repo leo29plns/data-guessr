@@ -81,7 +81,7 @@ export class App {
 
     this.#setupZoomControls();
     this.#setupModeControls();
-    // this.#setupLayers();
+    this.#setupLayers();
   }
 
   #setupZoomControls() {

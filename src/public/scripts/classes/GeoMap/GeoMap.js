@@ -27,6 +27,12 @@ export class GeoMap extends Module {
   /** @type {boolean} */
   #isFrozen = false;
 
+  /** @type {Coordinates} */
+  #defaultCenter;
+
+  /** @type {number} */
+  #defaultZoom;
+
   /**
    * @param {Bus} bus
    * @param {string} containerId
@@ -37,6 +43,9 @@ export class GeoMap extends Module {
    */
   constructor(bus, containerId, center, zoom, minZoom, maxBounds) {
     super(bus);
+
+    this.#defaultCenter = center;
+    this.#defaultZoom = zoom;
 
     this.#map = new LeafletMap(containerId, {
       zoomControl: false,
@@ -57,6 +66,7 @@ export class GeoMap extends Module {
     this.bus.on('round:started', () => {
       this.#isFrozen = false;
       this.#removeMarkers();
+      this.#map.setView(this.#defaultCenter, this.#defaultZoom);
     });
 
     this.bus.on('round:ended', (gameRound) => {
@@ -104,17 +114,25 @@ export class GeoMap extends Module {
    */
   #showTarget(poi) {
     const [lng, lat] = poi.geometry.coordinates;
+    const { arret_bus } = poi.properties;
 
     this.#targetMarker = marker([lat, lng], {
-      title: 'Réponse',
-    }).addTo(this.#map);
+      title: arret_bus,
+    })
+      .addTo(this.#map)
+      .bindPopup(arret_bus, {
+        autoClose: false,
+        closeOnClick: false,
+        closeButton: false,
+      })
+      .openPopup();
 
     if (this.#pointer) {
       const group = latLngBounds([
         this.#pointer.getLatLng(),
         this.#targetMarker.getLatLng(),
       ]);
-      this.#map.fitBounds(group, { padding: [50, 50] });
+      this.#map.fitBounds(group, { padding: [112, 112] });
     }
   }
 

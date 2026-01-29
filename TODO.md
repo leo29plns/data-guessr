@@ -6,3 +6,12 @@
 - [ ] Bump leaflet version
 - [ ] Display distance instead of dialog when round is ended
 - [ ] Locale manager - i18n
+
+
+
+-- ecran de fin --
+-- Tokens de border
+-- niveau
+-- menu rétractable
+-- pins de couleurs différentes
+-- dialog pour présenter jeu

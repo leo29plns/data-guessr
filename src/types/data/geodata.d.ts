@@ -1,7 +1,7 @@
 import type { Feature, FeatureCollection, Point } from 'geojson';
 
 export interface GeoDataProperties {
-  nom: string;
+  arret_bus: string;
   insee: string;
   nom_comm: string;
 
