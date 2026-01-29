@@ -33,13 +33,68 @@
 }
 
 aside.metadata {
-  pointer-events: auto;
-  background-color: var(--color-primary);
-  padding: 1rem;
+  --transition-duration: 500ms;
 
-  data {
+  display: grid;
+  grid-template-columns: 0fr auto;
+  align-items: start;
+
+  transition-property: grid-template-columns gap;
+  transition-timing-function: ease;
+  transition-duration: var(--transition-duration);
+
+  ui-icon {
+    transform: rotate(-90deg);
+
+    transition-property: transform;
+    transition-timing-function: ease;
+    transition-duration: var(--transition-duration);
+  }
+
+  &:has(.inner[data-open]) {
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+
+    ui-icon {
+      transform: rotate(90deg);
+    }
+  }
+
+  .inner {
+    pointer-events: auto;
+    background-color: var(--color-surface-1);
+    padding: 2rem;
+    border-radius: var(--radius-2);
+    height: 25rem;
+    max-width: 20rem;
+    overflow-y: scroll;
+    display: grid;
+    gap: 1rem;
+
+    transition-property: padding opacity visibility;
+    transition-timing-function: ease;
+    transition-duration: var(--transition-duration);
+
+    &:not([data-open]) {
+      padding: 0;
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  dl {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  dt {
     font-variant-numeric: tabular-nums;
     font-feature-settings: "tnum";
+  }
+
+  dd {
+    font-weight: bold;
+    font-size: 1.5em;
   }
 }
 
@@ -49,13 +104,11 @@ aside.controls {
 
   .zoom {
     display: grid;
-    background-color: var(--color-on-primary);
+    background-color: var(--color-on-surface-1);
     gap: 0.125rem;
-    border-radius: var(--button-border-radius);
+    border-radius: var(--radius-2);
 
     button {
-      padding: 0.25rem;
-
       ui-icon {
         display: block;
       }
@@ -74,6 +127,13 @@ aside.controls {
 }
 
 aside.actions {
+  anchor-name: --form-guess;
+
+  .form-hidden {
+    display: grid;
+    gap: 1rem;
+  }
+
   form {
     gap: 1rem;
   }
@@ -85,5 +145,37 @@ dialog.settings {
 
   &[open] {
     display: grid;
+  }
+}
+
+aside.round-score {
+  position-anchor: --form-guess;
+  inset: auto;
+  inset-block-end: anchor(end);
+  inset-inline-end: anchor(end);
+  gap: 1rem;
+
+  dl {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  dd {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+}
+
+dialog.game-score {
+  gap: 1rem;
+
+  dl {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  dd {
+    font-size: 1.5em;
+    font-weight: bold;
   }
 }

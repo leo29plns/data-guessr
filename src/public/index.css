@@ -6,5 +6,14 @@
 @import url("styles/libraries.css") layer(libraries);
 @import url("styles/map.css") layer(map);
 @import url("styles/gui.css") layer(gui);
+@import url("styles/overrides.css") layer(overrides);
 
-@layer reset, loading, tokens, accessibility, main, libraries, map, gui;
+@layer reset,
+  loading,
+  tokens,
+  accessibility,
+  main,
+  libraries,
+  map,
+  gui,
+  overrides;

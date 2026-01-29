@@ -25,8 +25,8 @@ body {
   min-height: 100dvh;
   display: grid;
 
-  background-color: var(--color-primary);
-  color: var(--color-on-primary);
+  background-color: var(--color-surface-1);
+  color: var(--color-on-surface-1);
 }
 
 main {
@@ -48,22 +48,88 @@ form-group {
 
 dialog {
   border: none;
+  background-color: var(--color-surface-1);
+  padding: 1rem;
+  display: grid;
+  justify-items: start;
+  border-radius: var(--radius-3);
 
   &::backdrop {
-    background-color: oklch(0 0 0 / 0.5);
+    background-color: var(--color-backdrop);
     backdrop-filter: blur(4px);
   }
 }
 
+[popover] {
+  border: none;
+  background-color: var(--color-surface-1);
+  padding: 1rem;
+  display: grid;
+  justify-items: start;
+  border-radius: var(--radius-3);
+}
+
 .button {
   border: 0;
-  padding: 0.5rem;
-  background-color: var(--color-primary);
-  border-radius: var(--button-border-radius);
+  padding-block: 0.5rem;
+  padding-inline: 0.75rem;
+  background-color: var(--color-surface-2);
+  color: var(--color-on-surface-1);
+  border-radius: var(--radius-2);
+  display: inline-flex;
+  gap: 0.5rem;
+  font-weight: 600;
 
   &:hover {
-    background-color: var(--color-primary-hover);
+    background-color: var(--color-surface-3);
   }
+}
+
+.button.brand {
+  background-color: var(--color-brand);
+  color: var(--color-on-brand);
+}
+
+.button.skeuomorphic {
+  --depth: 0.25rem;
+  --bg-override: var(--color-surface-2);
+  --shadow-col: color-mix(in srgb, var(--bg-override), black 20%);
+
+  position: relative;
+  background-color: var(--bg-override);
+  box-shadow: 0 var(--depth) 0 var(--shadow-col);
+  margin-block-end: var(--depth);
+
+  transition:
+    transform 100ms,
+    box-shadow 100ms;
+  transition-timing-function: ease;
+
+  &:hover {
+    transform: translateY(-0.125rem);
+    box-shadow: 0 calc(var(--depth) + 0.125rem) 0 var(--shadow-col);
+    background-color: var(--bg-override);
+  }
+
+  &:active {
+    transform: translateY(var(--depth));
+    box-shadow: 0 0 0 var(--shadow-col);
+  }
+}
+
+.button.skeuomorphic.brand {
+  --bg-override: var(--color-brand);
+  color: var(--color-on-brand);
+}
+
+.select {
+  border-radius: var(--radius-2);
+  border: 0;
+  padding-block: 0.5rem;
+  padding-inline: 0.75rem;
+  background-color: var(--color-surface-2);
+  color: var(--color-on-surface-1);
+  border-block-end: 0.125rem solid var(--color-brand);
 }
 
 ::view-transition-group(*) {

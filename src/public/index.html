@@ -55,29 +55,63 @@
     <main>
       <div class="gui">
         <div class="start">
-          <aside class="metadata" id="metadata">
-            <h1>map: metadata</h1>
-            <ul>
-              <li>
-                <p>Densité démographique</p>
-                <data-group>
-                  <data value="3500">3 500</data>pers/km²
-                </data-group>
-              </li>
-              <li>
-                <p>Superficie</p>
-                <data-group>
-                  <data value="54321">54 321</data>km²
-                </data-group>
-              </li>
-              <li>
-                <p>Population totale</p>
-                <data-group>
-                  <data value="12000000">12 000 000</data>hab.
-                  <data-scale>DATA</data-scale>
-                </data-group>
-              </li>
-            </ul>
+          <aside class="metadata">
+            <div id="metadata" class="inner">
+              <h1>map: metadata</h1>
+              <dl>
+                <div>
+                  <dt>📐 Superficie</dt>
+                  <dd><span data-slot="superfic"></span>&nbsp;km²</dd>
+                </div>
+                <div>
+                  <dt>👶 Naissances en 2022</dt>
+                  <dd><span data-slot="naiss2022"></span></dd>
+                </div>
+                <div>
+                  <dt>⚰️ Décès en 2022</dt>
+                  <dd><span data-slot="deces2022"></span></dd>
+                </div>
+                <div>
+                  <dt>💶 Revenu médian en 2020</dt>
+                  <dd><span data-slot="revMed2020"></span>&nbsp;€</dd>
+                  <data-scale
+                    id="scale-naiss"
+                    min="14570"
+                    max="50140"
+                    steps="5"
+                  ></data-scale>
+                </div>
+                <div>
+                  <dt>🏠 Prix moyen du m²</dt>
+                  <dd><span data-slot="achat_moyen_m2"></span>&nbsp;€</dd>
+                  <data-scale
+                    id="scale-naiss"
+                    min="605"
+                    max="10339"
+                    steps="5"
+                  ></data-scale>
+                </div>
+                <div>
+                  <dt>🛣️ Axe routier proche</dt>
+                  <dd><span data-slot="near_road"></span></dd>
+                </div>
+                <div>
+                  <dt>🏛️ Monument notable</dt>
+                  <dd><span data-slot="near_monu"></span></dd>
+                </div>
+                <div>
+                  <dt>🚌 Arrêt de bus</dt>
+                  <dd><span data-slot="arret_bus"></span></dd>
+                </div>
+              </dl>
+            </div>
+            <button
+              class="button"
+              id="toggle-metadata"
+              aria-label="Ouvrir ou fermer le panneau metadata"
+            >
+              <ui-icon name="chevron-down"></ui-icon>
+            </button>
           </aside>
           <aside class="controls">
             <div class="settings">
@@ -86,6 +120,7 @@
                 commandfor="settings"
                 command="show-modal"
                 aria-label="Ouvrir les paramètres"
+                class="button"
               >
                 <ui-icon name="settings"></ui-icon>
               </button>
@@ -112,39 +147,44 @@
         </div>
         <div class="end">
           <aside class="layers">
-            <select name="layer" id="layer">
-              <option value="layer-1">Layer 1</option>
-              <option value="layer-2">Layer 2</option>
-              <option value="layer-3">Layer 3</option>
-            </select>
+            <form-group>
+              <label for="layer" class="visually-hidden">Layer</label>
+              <select name="layer" id="layer" class="select">
+                <option value="default">Carte</option>
+              </select>
+            </form-group>
           </aside>
           <aside class="actions">
-            <form action="">
-              <form-group>
-                <label for="lat">Latitude</label>
-                <input
-                  type="number"
-                  name="lat"
-                  id="lat"
-                  step="0.000001"
-                  min="-180"
-                  max="180"
-                  required
-                >
-              </form-group>
-              <form-group>
-                <label for="long">Longitude</label>
-                <input
-                  type="number"
-                  name="long"
-                  id="long"
-                  step="0.000001"
-                  min="0"
-                  max="360"
-                  required
-                >
-              </form-group>
-              <button type="submit">Guess!</button>
+            <form action="" id="guess">
+              <div class="form-hidden visually-hidden-focusable">
+                <form-group>
+                  <label for="lat">Latitude</label>
+                  <input
+                    type="number"
+                    name="lat"
+                    id="lat"
+                    step="0.000001"
+                    min="-180"
+                    max="180"
+                    required
+                  >
+                </form-group>
+                <form-group>
+                  <label for="lng">Longitude</label>
+                  <input
+                    type="number"
+                    name="lng"
+                    id="lng"
+                    step="0.000001"
+                    min="0"
+                    max="360"
+                    required
+                  >
+                </form-group>
+              </div>
+              <button type="submit" class="button brand skeuomorphic">
+                Guess!
+              </button>
             </form>
           </aside>
         </div>
@@ -153,6 +193,40 @@
       <div id="map"></div>
     </main>
 
+    <aside popover="manual" id="round-score" class="round-score">
+      <h1>Fin du tour <span data-slot="round-number"></span> </h1>
+      <dl>
+        <div>
+          <dt>Distance</dt>
+          <dd><span data-slot="distance"></span> m</dd>
+        </div>
+        <div>
+          <dt>Score</dt>
+          <dd><span data-slot="score"></span> points</dd>
+        </div>
+      </dl>
+      <button
+        data-action="next"
+        class="button brand skeuomorphic"
+        aria-label="Passer au round suivant"
+      >
+        Suivant <ui-icon name="player-play"></ui-icon>
+      </button>
+    </aside>
+
+    <dialog id="game-score" class="game-score">
+      <h1>Fin de jeu !</h1>
+      <dl>
+        <div>
+          <dt>Votre score</dt>
+          <dd><span data-slot="totalScore"></span> points</dd>
+        </div>
+      </dl>
+      <button data-action="next" class="button" aria-label="Terminer la partie">
+        Rejouer <ui-icon name="player-play"></ui-icon>
+      </button>
+    </dialog>
+
     <dialog id="settings" class="settings">
       <h1>Paramètres</h1>
       <fieldset>
@@ -160,12 +234,12 @@
 
         <form-group>
           <input type="radio" id="light" name="mode" value="light" checked>
-          <label for="light">Light</label>
+          <label for="light">Clair</label>
         </form-group>
 
         <form-group>
           <input type="radio" id="dark" name="mode" value="dark">
-          <label for="dark">Dark</label>
+          <label for="dark">Sombre</label>
         </form-group>
 
         <form-group>
@@ -178,8 +252,9 @@
         command="request-close"
         commandfor="settings"
         aria-label="Fermer les paramètres"
+        class="button"
       >
-        <ui-icon name="x"></ui-icon>
+        <ui-icon name="x"></ui-icon> Fermer
       </button>
     </dialog>
 
@@ -188,14 +263,11 @@
     </template>
 
     <template id="template-data-scale">
-      <style>
-      @import url("components/data-scale/data-scale.css");
-      </style>
-
-      <div class="container">
-        <p>
-          <slot></slot>
-        </p>
+      <div class="wrapper">
+        <div class="indicator" part="indicator">
+          <ui-icon name="chevron-down"></ui-icon>
+        </div>
+        <div class="track" part="track"></div>
       </div>
     </template>
 

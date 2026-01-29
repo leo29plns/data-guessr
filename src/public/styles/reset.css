@@ -9,7 +9,7 @@
   box-sizing: border-box;
 }
 
-*:not(dialog) {
+*:not(dialog, [popover]) {
   margin: 0;
 }
 
