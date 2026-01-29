@@ -1,13 +1,20 @@
-/**
- * @import { GeoDataFeature } from 'src/types/geodata'
- * @import { Coordinates } from 'src/types/coordinates'
- */
-import { haversineDistance } from '@/scripts/utils/haversineDistance';
-import { MAX_SCORE, SCORE_SCALE } from './consts.js';
+import { haversineDistance } from '@/scripts/utils/haversineDistance.js';
+import { Module } from '../Module/Module.js';
+import { SCORE_THRESHOLDS, STATUSES } from './consts.js';
 
-export class GameRound {
+/**
+ * @import { GeoDataFeature } from 'src/types/data/geodata.js'
+ * @import { Coordinates } from 'src/types/coordinates.js'
+ * @import { Status } from './consts.js'
+ * @import { Bus } from '@/scripts/classes/Bus/Bus.js'
+ */
+
+export class GameRound extends Module {
   /** @type {GeoDataFeature} */
   #poi;
+
+  /** @type {Status} */
+  #status = STATUSES.PENDING;
 
   /** @type {number | undefined} */
   #score;
@@ -18,64 +25,71 @@ export class GameRound {
   /** @type {Coordinates | undefined} */
   #guess;
 
-  /** @type {[number, number] | undefined} */
-  #target;
+  /**
+   * @param {Bus} bus
+   * @param {GeoDataFeature} poi - Point of interest.
+   */
+  constructor(bus, poi) {
+    super(bus);
 
-  /** @param {GeoDataFeature} poi */
-  constructor(poi) {
     this.#poi = poi;
   }
 
-  /** @returns {number | undefined} */
+  start() {
+    this.#status = STATUSES.IN_PROGRESS;
+    this.bus.emit('round:started', this);
+  }
+
+  /** @param {Coordinates} coordinates */
+  submitGuess(coordinates) {
+    if (this.#status !== STATUSES.IN_PROGRESS) {
+      throw new Error(
+        `Can't submit a guess. This round is not in progress. Current: ${this.status}`,
+      );
+    }
+
+    const { lat, lng } = coordinates;
+    const [targetLng, targetLat] = this.#poi.geometry.coordinates;
+    const distance = haversineDistance(lat, lng, targetLat, targetLng);
+
+    this.#guess = coordinates;
+    this.#distance = distance;
+    this.#score = this.#calculateScore(distance);
+    this.#status = STATUSES.COMPLETED;
+
+    this.bus.emit('round:ended', this);
+  }
+
+  /**
+   * Threshold-based scoring.
+   *
+   * @param {number} distance - Meters
+   * @returns {number}
+   */
+  #calculateScore(distance) {
+    return (
+      SCORE_THRESHOLDS.find((treshold) => distance <= treshold.limit)?.score ??
+      0
+    );
+  }
+
+  get poi() {
+    return this.#poi;
+  }
+
+  get status() {
+    return this.#status;
+  }
+
   get score() {
     return this.#score;
   }
 
-  /** @returns {number | undefined} */
   get distance() {
     return this.#distance;
   }
 
-  /** @returns {Coordinates | undefined} */
   get guess() {
     return this.#guess;
-  }
-
-  /** @returns {[number, number] | undefined} */
-  get target() {
-    return this.#target;
-  }
-
-  /**
-   * Processes user guess and calculates results.
-   * Updates internal state solely.
-   *
-   * @param {number} lat
-   * @param {number} long
-   * @returns {void}
-   */
-  submitGuess(lat, long) {
-    const [targetLng, targetLat] = this.#poi.geometry.coordinates;
-    const distance = haversineDistance(lat, long, targetLat, targetLng);
-
-    this.#target = [targetLng, targetLat];
-
-    this.#guess = { lat, long };
-
-    this.#distance = distance;
-    this.#score = this.#calculateScore(distance);
-  }
-
-  /**
-   * Computes score using exponential decay.
-   * @param {number} distance - Meters
-   * @returns {number} 0-5000
-   */
-  #calculateScore(distance) {
-    if (distance < 25) return MAX_SCORE;
-
-    return Math.round(
-      Math.max(0, MAX_SCORE * Math.exp(-distance / SCORE_SCALE)),
-    );
   }
 }

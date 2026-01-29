@@ -1,4 +1,9 @@
 export interface Coordinates {
   lat: number;
-  long: number;
+  lng: number;
+}
+
+export interface Bounds {
+  southWest: Coordinates;
+  northEast: Coordinates;
 }

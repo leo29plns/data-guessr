@@ -47,6 +47,17 @@
   width: 1px;
 }
 
+.visually-hidden-focusable:not(:focus-within, :focus) {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 .a11y-skip-content {
   position: absolute;
   transform: translateY(-100%);

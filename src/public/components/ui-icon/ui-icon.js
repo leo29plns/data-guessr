@@ -2,6 +2,7 @@ import { ICONS_PATH } from './consts.js';
 import css from './ui-icon.css' with { type: 'css' };
 
 /** @type {Map<string, HTMLTemplateElement>} */
+// Save icons to avoid downloading them again
 const iconCache = new Map();
 
 export class UiIcon extends HTMLElement {
@@ -54,6 +55,7 @@ export class UiIcon extends HTMLElement {
 
     if (icon) return icon;
 
+    // Fetch and create a template for the new icon
     const res = await fetch(`${ICONS_PATH}/${name}.svg`);
     if (!res.ok) throw new Error(`${res.status}`);
 

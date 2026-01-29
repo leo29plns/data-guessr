@@ -1,7 +1,7 @@
 import geodata from '@/data/geodata.geojson' with { type: 'json' };
 
 /**
- * @import { GeoDataCollection, GeoDataFeature } from 'src/types/geodata'
+ * @import { GeoDataCollection, GeoDataFeature } from 'src/types/data/geodata'
  */
 
 export class GeoData {
@@ -14,10 +14,9 @@ export class GeoData {
 
   /**
    * Retrieves N random locations.
-   * Optimized to avoid copying the entire array.
    *
-   * @param {number} count - The number of locations to select.
-   * @returns {GeoDataFeature[]} An array of randomly selected locations.
+   * @param {number} count
+   * @returns {GeoDataFeature[]}
    */
   getRandomLocations(count) {
     const total = this.#geodata.features.length;

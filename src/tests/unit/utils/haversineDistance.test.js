@@ -2,16 +2,16 @@ import { describe, expect, it } from 'vitest';
 import { haversineDistance } from '@/scripts/utils/haversineDistance.js';
 
 describe('haversineDistance', () => {
-  const PARIS = { lat: 48.8566, long: 2.3522 };
-  const LONDON = { lat: 51.5074, long: -0.1278 };
-  const NEW_YORK = { lat: 40.7128, long: -74.006 };
+  const PARIS = { lat: 48.8566, lng: 2.3522 };
+  const LONDON = { lat: 51.5074, lng: -0.1278 };
+  const NEW_YORK = { lat: 40.7128, lng: -74.006 };
 
   it('returns 0 when start and end points are the same', () => {
     const distance = haversineDistance(
       PARIS.lat,
-      PARIS.long,
+      PARIS.lng,
       PARIS.lat,
-      PARIS.long,
+      PARIS.lng,
     );
     expect(distance).toBe(0);
   });
@@ -19,9 +19,9 @@ describe('haversineDistance', () => {
   it('calculates correct distance between Paris and London (~344km)', () => {
     const distance = haversineDistance(
       PARIS.lat,
-      PARIS.long,
+      PARIS.lng,
       LONDON.lat,
-      LONDON.long,
+      LONDON.lng,
     );
 
     // +/- 1km
@@ -32,9 +32,9 @@ describe('haversineDistance', () => {
   it('calculates correct distance between Paris and New York (~5837km)', () => {
     const distance = haversineDistance(
       PARIS.lat,
-      PARIS.long,
+      PARIS.lng,
       NEW_YORK.lat,
-      NEW_YORK.long,
+      NEW_YORK.lng,
     );
 
     // +/- 1km
@@ -45,15 +45,15 @@ describe('haversineDistance', () => {
   it('is commutative (Distance A -> B equals B -> A)', () => {
     const distAB = haversineDistance(
       PARIS.lat,
-      PARIS.long,
+      PARIS.lng,
       NEW_YORK.lat,
-      NEW_YORK.long,
+      NEW_YORK.lng,
     );
     const distBA = haversineDistance(
       NEW_YORK.lat,
-      NEW_YORK.long,
+      NEW_YORK.lng,
       PARIS.lat,
-      PARIS.long,
+      PARIS.lng,
     );
 
     expect(distAB).toBe(distBA);
