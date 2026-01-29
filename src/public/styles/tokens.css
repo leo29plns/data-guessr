@@ -6,7 +6,7 @@
 }
 
 :root {
-  --hue-brand: 260;
+  --hue-brand: 175;
   --chroma-brand: 0.15;
   --chroma-neutral: 0.01;
 
@@ -19,7 +19,7 @@
   --l-on-surface-2: 0.35;
   --l-on-surface-3: 0.55;
 
-  --l-brand: 0.6;
+  --l-brand: 0.45;
   --l-on-brand: 0.99;
 
   --hover-delta: -0.1;
@@ -36,7 +36,7 @@
   --l-on-surface-3: 0.6;
 
   --l-brand: 0.7;
-  --l-on-brand: 0.1;
+  --l-on-brand: 0.05;
 
   --hover-delta: 0.1;
 }

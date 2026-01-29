@@ -55,42 +55,63 @@
     <main>
       <div class="gui">
         <div class="start">
-          <aside class="metadata" id="metadata">
-            <h1>map: metadata</h1>
-            <dl>
-              <div>
-                <dt>📐 Superficie</dt>
-                <dd><span data-slot="superfic"></span>&nbsp;km²</dd>
-              </div>
-              <div>
-                <dt>👶 Naissances en 2022</dt>
-                <dd><span data-slot="naiss2022"></span></dd>
-              </div>
-              <div>
-                <dt>⚰️ Décès en 2022</dt>
-                <dd><span data-slot="deces2022"></span></dd>
-              </div>
-              <div>
-                <dt>💶 Revenu médian en 2020</dt>
-                <dd><span data-slot="revMed2020"></span>&nbsp;€</dd>
-              </div>
-              <div>
-                <dt>🏠 Prix moyen du m²</dt>
-                <dd><span data-slot="achat_moyen_m2"></span>&nbsp;€</dd>
-              </div>
-              <div>
-                <dt>🛣️ Axe routier proche</dt>
-                <dd><span data-slot="near_road"></span></dd>
-              </div>
-              <div>
-                <dt>🏛️ Monument notable</dt>
-                <dd><span data-slot="near_monu"></span></dd>
-              </div>
-              <div>
-                <dt>🚌 Arrêt de bus</dt>
-                <dd><span data-slot="arret_bus"></span></dd>
-              </div>
-            </dl>
+          <aside class="metadata">
+            <div id="metadata" class="inner">
+              <h1>map: metadata</h1>
+              <dl>
+                <div>
+                  <dt>📐 Superficie</dt>
+                  <dd><span data-slot="superfic"></span>&nbsp;km²</dd>
+                </div>
+                <div>
+                  <dt>👶 Naissances en 2022</dt>
+                  <dd><span data-slot="naiss2022"></span></dd>
+                </div>
+                <div>
+                  <dt>⚰️ Décès en 2022</dt>
+                  <dd><span data-slot="deces2022"></span></dd>
+                </div>
+                <div>
+                  <dt>💶 Revenu médian en 2020</dt>
+                  <dd><span data-slot="revMed2020"></span>&nbsp;€</dd>
+                  <data-scale
+                    id="scale-naiss"
+                    min="14570"
+                    max="50140"
+                    steps="5"
+                  ></data-scale>
+                </div>
+                <div>
+                  <dt>🏠 Prix moyen du m²</dt>
+                  <dd><span data-slot="achat_moyen_m2"></span>&nbsp;€</dd>
+                  <data-scale
+                    id="scale-naiss"
+                    min="605"
+                    max="10339"
+                    steps="5"
+                  ></data-scale>
+                </div>
+                <div>
+                  <dt>🛣️ Axe routier proche</dt>
+                  <dd><span data-slot="near_road"></span></dd>
+                </div>
+                <div>
+                  <dt>🏛️ Monument notable</dt>
+                  <dd><span data-slot="near_monu"></span></dd>
+                </div>
+                <div>
+                  <dt>🚌 Arrêt de bus</dt>
+                  <dd><span data-slot="arret_bus"></span></dd>
+                </div>
+              </dl>
+            </div>
+            <button
+              class="button"
+              id="toggle-metadata"
+              aria-label="Ouvrir ou fermer le panneau metadata"
+            >
+              <ui-icon name="chevron-down"></ui-icon>
+            </button>
           </aside>
           <aside class="controls">
             <div class="settings">
@@ -127,8 +148,8 @@
         <div class="end">
           <aside class="layers">
             <form-group>
-              <label for="layer">Layer</label>
-              <select name="layer" id="layer" class="button">
+              <label for="layer" class="visually-hidden">Layer</label>
+              <select name="layer" id="layer" class="select">
                 <option value="default">Carte</option>
               </select>
             </form-group>
@@ -161,7 +182,9 @@
                   >
                 </form-group>
               </div>
-              <button type="submit" class="button brand">Guess!</button>
+              <button type="submit" class="button brand skeuomorphic">
+                Guess!
+              </button>
             </form>
           </aside>
         </div>
@@ -175,7 +198,7 @@
       <dl>
         <div>
           <dt>Distance</dt>
-          <dd><span data-slot="distance"></span> km</dd>
+          <dd><span data-slot="distance"></span> m</dd>
         </div>
         <div>
           <dt>Score</dt>
@@ -184,14 +207,14 @@
       </dl>
       <button
         data-action="next"
-        class="button brand"
+        class="button brand skeuomorphic"
         aria-label="Passer au round suivant"
       >
         Suivant <ui-icon name="player-play"></ui-icon>
       </button>
     </aside>
 
-    <dialog id="game-score" class="score-score">
+    <dialog id="game-score" class="game-score">
       <h1>Fin de jeu !</h1>
       <dl>
         <div>
@@ -211,12 +234,12 @@
 
         <form-group>
           <input type="radio" id="light" name="mode" value="light" checked>
-          <label for="light">Light</label>
+          <label for="light">Clair</label>
         </form-group>
 
         <form-group>
           <input type="radio" id="dark" name="mode" value="dark">
-          <label for="dark">Dark</label>
+          <label for="dark">Sombre</label>
         </form-group>
 
         <form-group>
@@ -240,14 +263,11 @@
     </template>
 
     <template id="template-data-scale">
-      <style>
-      @import url("components/data-scale/data-scale.css");
-      </style>
-
-      <div class="container">
-        <p>
-          <slot></slot>
-        </p>
+      <div class="wrapper">
+        <div class="indicator" part="indicator">
+          <ui-icon name="chevron-down"></ui-icon>
+        </div>
+        <div class="track" part="track"></div>
       </div>
     </template>
 

@@ -71,7 +71,11 @@ export class App {
 
     this.#bus = new Bus();
     this.#mode = new ModeManager();
-    this.#mapMetadataManager = new MapMetadataManager(this.#bus, 'metadata');
+    this.#mapMetadataManager = new MapMetadataManager(
+      this.#bus,
+      'metadata',
+      'toggle-metadata',
+    );
     this.#geoMap = new GeoMap(this.#bus, 'map', idfCenter, 10, 9, idfBoundings);
     this.#layerManager = new LayerManager(this.#bus, 'layer');
     this.#guessManager = new GuessManager(this.#bus, 'guess');

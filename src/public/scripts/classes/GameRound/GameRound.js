@@ -61,7 +61,8 @@ export class GameRound extends Module {
   }
 
   /**
-   * Simple threshold-based scoring.
+   * Threshold-based scoring.
+   *
    * @param {number} distance - Meters
    * @returns {number}
    */

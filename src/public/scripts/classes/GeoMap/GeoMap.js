@@ -99,6 +99,8 @@ export class GeoMap extends Module {
   }
 
   /**
+   * Create or move the user's marker.
+   *
    * @param {Coordinates} coords
    */
   movePointer(coords) {
@@ -110,6 +112,8 @@ export class GeoMap extends Module {
   }
 
   /**
+   * Show the real location.
+   *
    * @param {GeoDataFeature} poi
    */
   #showTarget(poi) {
@@ -151,6 +155,8 @@ export class GeoMap extends Module {
   }
 
   /**
+   * Switch between different map layers.
+   *
    * @param {Layer} nextLayer
    */
   #setActiveLayer(nextLayer) {

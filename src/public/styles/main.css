@@ -51,7 +51,6 @@ dialog {
   background-color: var(--color-surface-1);
   padding: 1rem;
   display: grid;
-  gap: 1rem;
   justify-items: start;
   border-radius: var(--radius-3);
 
@@ -66,7 +65,6 @@ dialog {
   background-color: var(--color-surface-1);
   padding: 1rem;
   display: grid;
-  gap: 1rem;
   justify-items: start;
   border-radius: var(--radius-3);
 }
@@ -92,6 +90,55 @@ dialog {
   color: var(--color-on-brand);
 }
 
+/* --- SKEUOMORPHIC OVERRIDE --- */
+
+.button.skeuomorphic {
+  /* CONFIGURATION INTERNE */
+  --_depth: 4px;
+  /* Par défaut, on reprend la couleur "surface-2" du bouton standard */
+  --_bg-override: var(--color-surface-2);
+  /* L'ombre est calculée automatiquement par rapport à la couleur de fond */
+  --_shadow-col: color-mix(in srgb, var(--_bg-override), black 20%);
+
+  /* LAYOUT & PHYSIQUE */
+  position: relative;
+  /* On force le background avec notre variable pour contrôler l'état hover */
+  background-color: var(--_bg-override);
+  /* L'ombre solide */
+  box-shadow: 0 var(--_depth) 0 var(--_shadow-col);
+  /* On ajoute une marge en bas pour éviter que le bouton ne décale le layout */
+  margin-block-end: var(--_depth);
+
+  /* On remplace la transition de couleur par une transition de mouvement */
+  transition:
+    transform 0.1s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.1s;
+
+  /* HOVER : Mouvement vers le haut (Override du hover standard) */
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 calc(var(--_depth) + 2px) 0 var(--_shadow-col);
+
+    /* IMPORTANT : On bloque le changement de couleur standard (gris -> gris foncé)
+       pour garder l'aspect "plastique" qui ne change pas de couleur */
+    background-color: var(--_bg-override);
+  }
+
+  /* ACTIVE : Enfoncement (Override) */
+  &:active {
+    transform: translateY(var(--_depth));
+    box-shadow: 0 0 0 var(--_shadow-col);
+  }
+}
+
+/* CAS SPÉCIFIQUE : Si le bouton est AUSSI .brand */
+/* On cible .button.skeuomorphic.brand pour gagner en spécificité et écraser le .button.brand de base */
+.button.skeuomorphic.brand {
+  /* On met simplement à jour la variable locale, l'ombre se recalcule toute seule */
+  --_bg-override: var(--color-brand);
+  color: var(--color-on-brand);
+}
+
 .select {
   border-radius: var(--radius-2);
   border: 0;
@@ -101,38 +148,6 @@ dialog {
   color: var(--color-on-surface-1);
   border-block-end: 0.125rem solid var(--color-brand);
 }
-
-/* .button {
-  --depth: 6px;
-
-  border: 0;
-  padding: 0.5rem 1rem;
-  background-color: var(--color-primary);
-  color: var(--color-on-primary);
-  border-radius: var(--button-border-radius);
-  display: inline-flex;
-  cursor: pointer;
-
-  box-shadow: 0 var(--depth) 0 0
-    color-mix(in srgb, var(--color-primary), black 20%);
-
-  position: relative;
-  transition:
-    transform 0.1s ease,
-    box-shadow 0.1s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 calc(var(--depth) + 2px) 0 0
-      color-mix(in srgb, var(--color-primary), black 25%);
-  }
-
-  &:active {
-    transform: translateY(var(--depth));
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary), black 20%);
-    transition: transform 0.05s ease;
-  }
-} */
 
 ::view-transition-group(*) {
   animation-duration: 500ms;

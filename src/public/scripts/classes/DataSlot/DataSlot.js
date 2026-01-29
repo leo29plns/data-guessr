@@ -27,10 +27,21 @@ export class DataSlot {
       if (key && key in slotData) {
         const value = slotData[key];
 
-        slot.innerText =
-          typeof value === 'number'
-            ? this.#formatter.format(value)
-            : String(value ?? '');
+        // If it is a number, format it
+        if (typeof value === 'number') {
+          let dataNode = slot.querySelector('data');
+
+          // Create <data> tag if it doesn't exist
+          if (!dataNode) {
+            dataNode = document.createElement('data');
+            slot.replaceChildren(dataNode);
+          }
+
+          dataNode.value = String(value);
+          dataNode.textContent = this.#formatter.format(value);
+        } else {
+          slot.textContent = String(value ?? '');
+        }
       }
     }
   }

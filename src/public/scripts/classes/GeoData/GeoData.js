@@ -14,10 +14,9 @@ export class GeoData {
 
   /**
    * Retrieves N random locations.
-   * Optimized to avoid copying the entire array.
    *
-   * @param {number} count - The number of locations to select.
-   * @returns {GeoDataFeature[]} An array of randomly selected locations.
+   * @param {number} count
+   * @returns {GeoDataFeature[]}
    */
   getRandomLocations(count) {
     const total = this.#geodata.features.length;

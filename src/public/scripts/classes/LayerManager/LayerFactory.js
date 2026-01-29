@@ -200,7 +200,7 @@ export class LayerFactory {
       pointToLayer: (_, latlng) => circleMarker(latlng, STYLES.busStops),
       onEachFeature: (f, l) => {
         const p = f.properties;
-        const content = `<strong>${p.nom}</strong><br>${p.nom_comm}${p.near_road ? `<br>${p.near_road}` : ''}`;
+        const content = `<strong>${p.arret_bus}</strong><br>${p.nom_comm}${p.near_road ? `<br>${p.near_road}` : ''}`;
         l.bindTooltip(content, { direction: 'top', offset: [0, -5] });
       },
     });

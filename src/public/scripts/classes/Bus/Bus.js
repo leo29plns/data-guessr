@@ -6,6 +6,8 @@ export class Bus {
   #target = new EventTarget();
 
   /**
+   * Send a new event with data.
+   *
    * @template {keyof EventRegistry & string} K
    * @param {K} eventName
    * @param {EventRegistry[K]} [data]
@@ -15,6 +17,8 @@ export class Bus {
   }
 
   /**
+   * Listen for an event and run the callback.
+   *
    * @template {keyof EventRegistry & string} K
    * @param {K} eventName
    * @param {(data: EventRegistry[K]) => void} callback

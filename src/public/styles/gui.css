@@ -33,21 +33,68 @@
 }
 
 aside.metadata {
-  pointer-events: auto;
-  background-color: var(--color-surface-1);
-  padding: 1rem;
-  max-width: 20rem;
-  border-radius: var(--radius-2);
+  --transition-duration: 500ms;
+
+  display: grid;
+  grid-template-columns: 0fr auto;
+  align-items: start;
+
+  transition-property: grid-template-columns gap;
+  transition-timing-function: ease;
+  transition-duration: var(--transition-duration);
+
+  ui-icon {
+    transform: rotate(-90deg);
+
+    transition-property: transform;
+    transition-timing-function: ease;
+    transition-duration: var(--transition-duration);
+  }
+
+  &:has(.inner[data-open]) {
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+
+    ui-icon {
+      transform: rotate(90deg);
+    }
+  }
+
+  .inner {
+    pointer-events: auto;
+    background-color: var(--color-surface-1);
+    padding: 2rem;
+    border-radius: var(--radius-2);
+    height: 25rem;
+    max-width: 20rem;
+    overflow-y: scroll;
+    display: grid;
+    gap: 1rem;
+
+    transition-property: padding opacity visibility;
+    transition-timing-function: ease;
+    transition-duration: var(--transition-duration);
+
+    &:not([data-open]) {
+      padding: 0;
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
 
   dl {
     display: grid;
-    gap: 0.25rem;
+    gap: 1.5rem;
   }
 
   dt {
-    font-weight: bold;
     font-variant-numeric: tabular-nums;
     font-feature-settings: "tnum";
+  }
+
+  dd {
+    font-weight: bold;
+    font-size: 1.5em;
   }
 }
 
@@ -62,8 +109,6 @@ aside.controls {
     border-radius: var(--radius-2);
 
     button {
-      padding: 0.25rem;
-
       ui-icon {
         display: block;
       }
@@ -108,4 +153,29 @@ aside.round-score {
   inset: auto;
   inset-block-end: anchor(end);
   inset-inline-end: anchor(end);
+  gap: 1rem;
+
+  dl {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  dd {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+}
+
+dialog.game-score {
+  gap: 1rem;
+
+  dl {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  dd {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
 }
