@@ -132,6 +132,10 @@ dialog {
   border-block-end: 0.125rem solid var(--color-brand);
 }
 
+p {
+  max-width: 75ch;
+}
+
 ::view-transition-group(*) {
   animation-duration: 500ms;
   animation-timing-function: ease;

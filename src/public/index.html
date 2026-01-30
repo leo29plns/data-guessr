@@ -7,6 +7,29 @@
 
     <script>
     (() => {
+      const warnUser = () => {
+        alert(
+          "Votre navigateur n'est pas à jour. Notre site utilise des fonctionnalités récentes nécessistant une mise à jour de votre navigateur pour fonctionner.",
+        );
+        window.stop();
+      };
+
+      window.addEventListener(
+        'error',
+        (e) => {
+          if (
+            e.message &&
+            (e.message.includes('import') || e.message.includes('css'))
+          )
+            warnUser();
+        },
+        true,
+      );
+    })();
+    </script>
+
+    <script>
+    (() => {
       const stored = localStorage.getItem('mode');
       const system = window.matchMedia('(prefers-color-scheme: dark)').matches
         ? 'dark'
@@ -152,7 +175,7 @@
         <div class="end">
           <aside class="layers">
             <form-group>
-              <label for="layer" class="visually-hidden">Layer</label>
+              <label for="layer" class="visually-hidden">Calque</label>
               <select name="layer" id="layer" class="select">
                 <option value="default">Carte</option>
               </select>
@@ -259,6 +282,25 @@
         class="button"
       >
         <ui-icon name="x"></ui-icon> Fermer
+      </button>
+    </dialog>
+
+    <dialog id="welcome" class="welcome">
+      <h1>DataGuessr</h1>
+
+      <p>
+        Bienvenue sur DataGuessr. Ce jeu vous invite à trouver un point précis
+        en Île-de-France uniquement à partir de métadonnées.
+      </p>
+
+      <p>
+        Vous pouvez vous aider des différents calques qui vous donneront
+        diverses informations sur les communes, les revenus de la population, et
+        tant d'autres.
+      </p>
+
+      <button data-action="next" class="button" aria-label="Lancer la partie">
+        Jouer <ui-icon name="player-play"></ui-icon>
       </button>
     </dialog>
 
