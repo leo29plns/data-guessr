@@ -179,3 +179,8 @@ dialog.game-score {
     font-weight: bold;
   }
 }
+
+.welcome {
+  display: grid;
+  gap: 1rem;
+}
