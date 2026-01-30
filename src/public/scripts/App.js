@@ -7,6 +7,7 @@ import { GeoMap } from '@/scripts/classes/GeoMap/GeoMap.js';
 import { ModeManager } from '@/scripts/classes/ModeManager/ModeManager.js';
 import { Bus } from './classes/Bus/Bus.js';
 import { GameScoreManager } from './classes/DialogManager/GameScoreManager.js';
+import { WelcomeManager } from './classes/DialogManager/WelcomeManager.js';
 import { Game } from './classes/Game/Game.js';
 import { GuessManager } from './classes/GuessManager/GuessManager.js';
 import { LayerFactory } from './classes/LayerManager/LayerFactory.js';
@@ -56,6 +57,10 @@ export class App {
   /** @type {LayerManager} */
   #layerManager;
 
+  /** @type {WelcomeManager} */
+  // biome-ignore lint/correctness/noUnusedPrivateClassMembers: private instance
+  #welcomeManager;
+
   constructor() {
     const idfCenter = { lat: 48.709167, lng: 2.504722 };
     const idfBoundings = {
@@ -82,6 +87,7 @@ export class App {
     this.#roundScoreManager = new RoundScoreManager(this.#bus, 'round-score');
     this.#gameScoreManager = new GameScoreManager(this.#bus, 'game-score');
     this.#game = new Game(this.#bus);
+    this.#welcomeManager = new WelcomeManager(this.#bus, 'welcome');
 
     this.#setupZoomControls();
     this.#setupModeControls();
