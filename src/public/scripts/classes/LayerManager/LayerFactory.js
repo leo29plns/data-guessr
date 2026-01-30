@@ -10,7 +10,6 @@ import { circleMarker, geoJSON, layerGroup, rectangle } from 'leaflet';
  * @import { GeoDataCollection } from 'src/types/data/geodata'
  */
 
-// --- Constants & Helper Functions from "Crade" version ---
 const CELL_LAT_SIZE = 0.00587;
 const CELL_LNG_SIZE = 0.00778;
 
@@ -93,7 +92,7 @@ export class LayerFactory {
       onEachFeature: (f, l) => {
         const p = f.properties;
         l.bindTooltip(
-          `<strong>${p.nom}</strong><br>Pop: ${p.pop2020.toLocaleString()}<br>Revenu: ${p.revMed2020} €`,
+          `<strong>${p.nom}</strong><br>Pop: ${p.pop2020.toLocaleString('fr-FR')}<br>Revenu: ${p.revMed2020} €`,
           { sticky: true, className: 'map-tooltip', offset: [0, -10] },
         );
         l.on('mouseover', () =>

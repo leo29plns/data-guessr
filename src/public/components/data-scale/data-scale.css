@@ -37,7 +37,7 @@
 
 .step {
   flex: 1;
-  border-radius: var(--radius-1);
+  border-radius: var(--radius-round);
 
   background-color: oklch(
     from var(--color-brand) l c h /
